@@ -1,5 +1,4 @@
 import pygame
-import color
 
 class Player():
     def __init__(self):
@@ -11,7 +10,10 @@ class Player():
 
         self.rect = (self.x, self.y, self.width, self.height)
 
-        self.image = pygame.image.load("assets/test/player_test.png")
+        self.images = [
+            pygame.image.load("assets/test/player_test_left.png"),
+            pygame.image.load("assets/test/player_test_right.png")
+        ]
 
         self.walking_speed = 5
 
@@ -20,17 +22,26 @@ class Player():
 
         self.friction = 1
 
-    def draw(self, surface):
-        #pygame.draw.rect(surface, color.white, self.rect)
-        surface.blit(self.image, (self.x, self.y))
+        self.facing = 'left'
 
-    def update(self, events):
+    def draw(self, surface):
+        if self.facing == 'left':
+            surface.blit(self.images[0], (self.x, self.y))
+        elif self.facing == 'right':
+            surface.blit(self.images[1], (self.x, self.y))
+
+    def update(self):
         self.x += self.x_velocity
         self.y += self.y_velocity
 
-        self.movement_handler(events)
+        self.movement_handler()
 
-    def movement_handler(self, events):
+    def movement_handler(self):
+        if self.x_velocity < 0:
+            self.facing = 'left'
+        elif self.x_velocity > 0:
+            self.facing = 'right'
+
         if self.x_velocity > 0:
             self.x_velocity -= self.friction
         elif self.x_velocity < 0:

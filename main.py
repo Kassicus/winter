@@ -48,7 +48,7 @@ class Game():
         self.player.draw(self.screen)
 
     def update(self):
-        self.player.update(self.events)
+        self.player.update()
 
         pygame.display.update()
         self.clock.tick(30)
