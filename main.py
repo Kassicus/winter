@@ -19,6 +19,8 @@ class Game():
         self.clock = pygame.time.Clock()
         self.events = pygame.event.get()
 
+        self.fps_font = pygame.font.Font("assets/fonts/hurmit.otf", 18)
+
         self.player = player.Player()
 
     def start(self):
@@ -33,13 +35,20 @@ class Game():
 
             self.update()
 
+    def get_fps(self):
+        fps = ("fps: " + str(int(self.clock.get_fps())))
+        fps_text = self.fps_font.render(fps, 1, color.white)
+        return(fps_text)
+
     def draw(self):
         self.screen.fill(color.black)
+
+        self.screen.blit(self.get_fps(), (10, 10))
 
         self.player.draw(self.screen)
 
     def update(self):
-        self.player.update()
+        self.player.update(self.events)
 
         pygame.display.update()
         self.clock.tick(30)
