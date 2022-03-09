@@ -1,6 +1,8 @@
 import pygame
 import color
 import player
+import inventory
+import world
 
 pygame.init()
 
@@ -21,7 +23,11 @@ class Game():
 
         self.fps_font = pygame.font.Font("assets/fonts/hurmit.otf", 18)
 
-        self.player = player.Player()
+        self.world = world.World()
+
+        self.player = player.Player(self.screen)
+
+        self.inventory = inventory.Inventory()
 
     def start(self):
         while self.running:
@@ -30,6 +36,10 @@ class Game():
             for event in self.events:
                 if event.type == pygame.QUIT:
                     self.running = False
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_e:
+                        self.inventory.toggle_active()
 
             self.draw()
 
@@ -45,10 +55,18 @@ class Game():
 
         self.screen.blit(self.get_fps(), (10, 10))
 
+        self.world.draw(self.screen)
+
         self.player.draw(self.screen)
 
+        self.inventory.draw(self.screen)
+
     def update(self):
+        self.world.update(self.events, self.inventory, self.player)
+
         self.player.update()
+
+        self.inventory.update()
 
         pygame.display.update()
         self.clock.tick(30)
