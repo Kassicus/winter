@@ -1,5 +1,9 @@
 # Un-named Winter Survival Game
 
+## Game things
+Inventory must be child of Player not child of game
+Mouse needs to have a modified slot, stripped down version of the Slot class that allows the slots and the mouse to communicate with each other.
+
 ## Concept
 Player spawns with few simple hand tools in a canadian wilderness. There are a few days until the first snowstorm of the season and the goal is to survive.
 
