@@ -19,6 +19,11 @@ class Player():
 
         self.friction = 1
 
+        self.facing_left = pygame.image.load("assets/test/player_test_left.png")
+        self.facing_right = pygame.image.load("assets/test/player_test_right.png")
+
+        self.image = self.facing_left
+
         #self.anim_walk_left = animation.StaticAnimation()
         #self.anim_walk_right = animation.StaticAnimation()
         #self.anim_walk_up = animation.StaticAnimation()
@@ -27,7 +32,7 @@ class Player():
         #self.anim_standing = animation.StaticAnimation()
 
     def draw(self, surface):
-        pygame.draw.rect(surface, color.white, self.rect, 5)
+        surface.blit(self.image, (self.x, self.y))
 
     def update(self):
         self.rect = (self.x, self.y, self.width, self.height)
@@ -40,8 +45,10 @@ class Player():
     def move(self):
         if self.x_velocity < 0:
             self.x_velocity += self.friction
+            self.image = self.facing_left
         elif self.x_velocity > 0:
             self.x_velocity -= self.friction
+            self.image = self.facing_right
 
         if self.y_velocity < 0:
             self.y_velocity += self.friction

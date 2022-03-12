@@ -2,6 +2,7 @@ import pygame
 import color
 import player
 import animation
+import world
 
 pygame.init()
 
@@ -22,7 +23,7 @@ class Game():
 
         self.player = player.Player()
 
-        animation.test_animation.playing = True
+        self.world = world.World()
 
     def start(self):
         while self.running:
@@ -39,14 +40,14 @@ class Game():
     def draw(self):
         self.screen.fill(color.black)
 
-        self.player.draw(self.screen)
+        self.world.draw(self.screen)
 
-        animation.test_animation.draw(self.screen)
+        self.player.draw(self.screen)
 
     def update(self):
         self.player.update()
 
-        animation.test_animation.update()
+        self.world.update()
 
         pygame.display.update()
         self.clock.tick(30)

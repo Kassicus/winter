@@ -36,11 +36,3 @@ class StaticAnimation():
 
         if self.playing:
             self.play_animation()
-
-test_animation = StaticAnimation(100, 100, 5, 10, frames=[
-    pygame.image.load("assets/animations/test/1.png"),
-    pygame.image.load("assets/animations/test/2.png"),
-    pygame.image.load("assets/animations/test/3.png"),
-    pygame.image.load("assets/animations/test/4.png"),
-    pygame.image.load("assets/animations/test/5.png")
-])
